@@ -9,7 +9,8 @@
     <title>EY Pricing Tool</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+	<link href="css/styles.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -22,7 +23,7 @@
   <div class="container">
     <div class="header clearfix">
       <nav>
-        <ul class="nav nav-pills pull-right">
+        <ul class="nav nav-tabs pull-right">
           <li role="presentation" class="active"><a href="#">Home</a></li>
           <li role="presentation"><a href="#">About</a></li>
           <li role="presentation"><a href="#">Contact</a></li>
@@ -30,25 +31,17 @@
       </nav>
       <h3 class="text-muted">EYPT</h3>
     </div>
-<!-- JUMBOTRON
-    <div class="jumbotron">
-      <p class="lead">Placeholder text</p>
-      <p><a class="btn btn-lg btn-success" href="#" role="button">Login</a></p>
-    </div>-->
 
-    <div class="row">
-      <div class="col-lg-6">
+    <div class="row" id="eng-sum">
         <h4>Engagement Summary</h4>
         <form class="form-inline">
           <div class="form-group">
             <label class="sr-only" for="inputTime">Length of engagement</label>
             <input type="number" class="form-control" id="inputTime" placeholder="Length of engagement">
           </div>
-        </form>
+
           <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Unit
-              <span class="caret"></span>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">Unit<span class="caret"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li><a href="#">Hours</a></li>
@@ -56,23 +49,61 @@
               <li><a href="#">Weeks</a></li>
             </ul>
           </div>
-
-
-        <h4>Subheading</h4>
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-      </div>
-
-      <div class="col-lg-6">
-      </div>
+        </form>
     </div>
+	
+	<div class="row" id="main-bod">
+        <h4>Engagement Details</h4>
+          <!-- Resource select -->
+          <div id="resource-list">
+            <input
+              v-model="newTodoText"
+              v-on:keyup.enter="addNewTodo"
+              placeholder="Add a resource"
+			  class="form-control"
+            >
+			
+			<ul class="cn-header">
+			<li>Delete</li>
+			<li>Name</li>
+			<li>Level</li>
+			</ul>
+			
+            <ul>
+              <li
+                is="todo-item"
+                v-for="(todo, index) in todos"
+                v-bind:key="index"
+                v-bind:title="todo"
+                v-bind:levelselect="levellabel"
+                v-on:remove="todos.splice(index, 1)"
+              ></li>
+            </ul>
+          </input>
+          </div>
 
-    <footer class="footer">
+          <!-- Costing -->
+          <div id="cost-rates">
+            <h3>Cost Rates</h3>
+            <select v-model="selected">
+              <option v-for="option in options" v-bind:value="option.value">
+                {{ option.text }}
+              </option>
+            </select>
+            <span>Cost: {{ selected }}</span>
+          </div>
+	
+	</div>
+
+	
+    <footer class="footer bottom-align-text">
       <p>&copy; 2017 Camille Nicodemus</p>
     </footer>
 
   </div> <!-- /container -->
 
+  <script src="https://unpkg.com/vue"></script>
+  <script src="js/vue.js"></script>
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
